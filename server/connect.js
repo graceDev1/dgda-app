@@ -3,7 +3,7 @@ const config = require('config');
 
 const db = config.get('mongoUri');
 
-mongoose.connect(db,{useCreateIndex:true, useUnifiedTopology:true, useNewUrlParser:true})
+mongoose.connect(db,{useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex:true})
 .then(()=> console.log('connected'))
 .catch((err)=> console.log(err));
 
