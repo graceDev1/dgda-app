@@ -7,6 +7,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
+//routes 
+app.use('/user',userRoute);
+
 
 const port = process.env.PORT || 5000;
 
