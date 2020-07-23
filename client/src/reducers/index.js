@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import forumReducers from './forumReducer';
+import forumReducer from './forumReducer';
 import authReducer from './authReducer';
 
 
 export default combineReducers({
-    forum : forumReducers,
+    forum : forumReducer,
     auth: authReducer
 })

@@ -14,10 +14,10 @@ function Header() {
               <Link className="nav-link" to="/">Acceuil <span className="sr-only">(current)</span></Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/forum">Reglement</Link>
+              <Link className="nav-link" to="/reglement">Reglement</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/reglement">Forum</Link>
+              <Link className="nav-link" to="/forum">Forum</Link>
             </li>
           </ul>
         </div>

@@ -14,6 +14,7 @@ const auth = require('../middleware/auth');
 router.get('/', async (req,res)=>{
     
     await UserModel.find()
+    .select('-password')
     .then(data=> res.json(data))
     .then(err => console.log(err));
 } )
