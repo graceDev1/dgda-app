@@ -7,21 +7,20 @@ const config = require('config');
 const auth = require('../middleware/auth');
 
 
-// router get api/users
+// router get api/user
 // @desc list of user
 // @access Public
 
-router.get('/', async (req,res)=>{
+router.get('/', auth,(req,res)=>{
     
-    await UserModel.find()
+    UserModel.findById(req.User.id)
     .select('-password')
     .then(data=> res.json(data))
-    .then(err => console.log(err));
 } )
 
 
 
-// router post /user
+// router post /api/user
 // @desc register user
 // @access Public
 router.post('/',(req,res)=>{
@@ -71,7 +70,7 @@ router.post('/',(req,res)=>{
 });
 
 
-// router post /user/auth
+// router post /api/user/auth
 // @desc login user
 // @access token
 router.post('/auth',(req,res)=>{

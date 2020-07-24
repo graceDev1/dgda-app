@@ -16,18 +16,18 @@ export const loaduser = () => (dispatch, getState) =>{
     // user loading 
     dispatch({type: USER_LOADING});
 
-    fetch('/api/user', tokenConfig(getState))
-    .then(data=>{
+    axios.get('/api/user', tokenConfig(getState))
+    .then(res=>{
         dispatch({
             type: USER_LOADED,
-            payload: data
+            payload: res.data
         })
-    } )
+    })
     .catch(err =>{
-        dispatch(returnErrors(err.response.data, err.response.status))
+        dispatch(returnErrors(err, err))
         dispatch({
             type: AUTH_ERROR,
-            payload: err
+            payload: err 
         })
     });
 }
@@ -66,26 +66,27 @@ export const logout = () =>{
 
 
 
-// login user
-export const login = ({email, password})=> dispatch=>{
+// login user 
+export const login = ({email, password}) => dispatch =>{
+    // headersd
     const config = {
-        headers: {
-            'Content-type': 'application/json'
-        }
-    }
-    const body = JSON.stringify({email, password});
-    axios.post('/api/user/auth',body, config)
-    .then(res => {
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: res.data
-        })
-    })
-    .catch(err=>{
-        dispatch(returnErrors(err.response.data ,err.response.status, 'LOGIN_FAIL'));
-        dispatch({type: LOGIN_FAIL})
-    });
+       headers: {
+           'Content-type': 'application/json'
+       }
+   }
+
+   const body = JSON.stringify({email,password});
+   axios.post('/api/user/auth',body,config)
+   .then(res => dispatch({
+       type: LOGIN_SUCCESS,
+       payload: res.data
+   }))
+   .catch(err=> {
+       dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'));
+       dispatch({type: LOGIN_FAIL}); 
+   });
 }
+
 
 // get the token
 export const tokenConfig = getState => {

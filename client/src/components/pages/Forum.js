@@ -7,11 +7,13 @@ export class Forum extends Component {
 
     componentWillMount(){
         this.props.getforum();
+        
     }
 
     static propTypes = {
         getforum: PropTypes.func.isRequired,
-        forum : PropTypes.object.isRequired
+        forum : PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool
     }
   render() {
     return (
@@ -27,9 +29,9 @@ export class Forum extends Component {
           </div>
 
           <div className="container mt-2 mb-5">
-            <Link className="btn btn-primary rounded float-right" to="/newforum">
+            {this.props.isAuthenticated ? (<Link className="btn btn-primary rounded float-right" to="/newforum">
               + AJOUTER UN POST
-            </Link>
+            </Link>): ''}
           </div>
           <div className="container mt-5">
                {this.props.forum.map(post=>(
@@ -39,7 +41,6 @@ export class Forum extends Component {
                           <p class="card-text">
                               {post.content}
                         </p>
-                        <p className="mf-5">{post.date}</p>
                       </div>
                         
                    </div>
@@ -54,7 +55,8 @@ export class Forum extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        forum: state.forum.forum
+        forum: state.forum.forum,
+        isAuthenticated: state.auth.isAuthenticated
     }
 }
 

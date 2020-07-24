@@ -2,19 +2,59 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import {connect } from 'react-redux';
 import { login } from '../../actions/authAction';
-import { Link, Redirect } from 'react-router-dom';
+import { clearErrors } from '../../actions/errorAction';
+import {
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    Form,
+    FormGroup,
+    Input,
+    NavLink,
+    Alert
+} from 'reactstrap';
 
 export class Login extends Component {
 
     state = {
-        username:'',
-        password:''
+        modal:'',
+        email:'',
+        password:'',
+        msg:''
     }
 
     static propTypes = {
         login : PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool
+        isAuthenticated: PropTypes.bool,
+        clearErrors: PropTypes.func.isRequired
     }
+
+    componentDidUpdate(prevProps){
+        const { error, isAuthenticated} = this.props;
+        if(error !== prevProps.error){
+            if(error.id === 'LOGIN_FAIL'){
+                this.setState({msg: error.msg.msg})
+            } else{
+                this.setState({msg: null})
+            }
+        }
+
+          // if is authenticated , close the modal
+          if(this.state.modal){
+            if(isAuthenticated){
+                this.toggle();
+            }
+        }
+    }
+
+    toggle = () => {
+        // clear errors
+        this.props.clearErrors();
+        this.setState({
+            modal : !this.state.modal
+        });
+    };
 
     onSubmit = e =>{
         e.preventDefault()
@@ -29,28 +69,42 @@ export class Login extends Component {
     onChange = e => this.setState({[e.target.name]: e.target.value});
 
     render() {
-        const {username, password} = this.state;
-        if(this.props.isAuthenticated){
-            return <Redirect to="/newforum"/>
-        }
+
         return (
-            <div className="col-md-6 m-auto" >
-                <div className="card card-body mt-5">
-                    <h2>Connectez Vous Ici </h2>
-                    <form className="form" onSubmit={this.onSubmit}>
-                        <div className="form-group">
-                            <input type="text" name="username" value={username} onChange={this.onChange} placeholder="Nom d'utilisateur" className="form-control rounded"/>
-                        </div>
-                        <div className="form-group">
-                            <input type="password" name="password" value={password} onChange={this.onChange} placeholder="Mot de passe" className="form-control rounded"/>
-                        </div>
-                        <p>
-                            Avez-vous Compte?<Link to="/register">S'inscrire</Link>
-                        </p>
-                        <button type="submit" className="btn btn-primary rounded">Connection</button>
-                       
-                    </form>
-                </div>
+            <div>
+            <NavLink onClick={this.toggle} href="#">
+                Login
+            </NavLink>
+            <Modal isOpen={this.state.modal}
+            toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+                <ModalBody>
+    { this.state.msg ? <Alert color="danger"> {this.state.msg}</Alert>: null}
+                    <Form onSubmit={this.onSubmit}>
+                        <FormGroup>
+                            <Input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Email"
+                            className="mb-3"
+                            onChange={this.onChange}/>
+                            <Input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Password"
+                            className="mb-3"
+                            onChange={this.onChange}/>
+                            <Button
+                            color="dark"
+                            style={{marginTop: '2rem'}}
+                            block
+                            >Login</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
             </div>
         )
     }
@@ -58,7 +112,8 @@ export class Login extends Component {
 
 const mapStateToProps = (state) =>{
     return{
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.isAuthenticated,
+        error: state.error
     }
 }
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps, {login, clearErrors})(Login);

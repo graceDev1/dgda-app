@@ -20,12 +20,11 @@ router.get('/',(req,res)=>{
 //@desc PRIVATE
 router.post('/',auth,(req,res)=>{
     // check if all fields are filled
-    const { title, content, author} = req.body;
-    if(!title || !content || !author) return res.status(400).json({msg: "Please enter all fields"});
+    const { title, content} = req.body;
+    if(!title || !content) return res.status(400).json({msg: "Please enter all fields"});
     const newforum = new forumModel({
         title,
-        content,
-        author
+        content
     });
     newforum.save()
     .then(data=> res.json(data))

@@ -7,8 +7,7 @@ import axios from 'axios';
 
 // get forum data
 export const getforum = ()=> dispatch=>{
-
-    console.log("getforum")
+ 
     dispatch(setForumLoading());
    axios.get('/api/forum')
    .then(data=>{
@@ -22,19 +21,13 @@ export const getforum = ()=> dispatch=>{
 
 // post forum 
 
-export const forumAdd = ({title, content, author}) => (dispatch, getState) =>{
-    const config = {
-        headers:{
-            'Content-type': 'application/json'
-        }
-    }
+export const forumAdd = (forum) => (dispatch, getState) =>{
 
-    const body = JSON.stringify({title,content,author});
-    axios.post('/api/forum',body,config, tokenConfig(getState))
-    .then(data =>{
+    axios.post('/api/forum', forum, tokenConfig(getState))
+    .then(res =>{
         dispatch({
             type: POST_FORUM,
-            payload: data.data
+            payload: res.data
         })
     })
     .catch(err=> dispatch(returnErrors(err.response.data, err.response.status)));
