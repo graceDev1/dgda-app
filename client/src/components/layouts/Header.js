@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { NavItem } from 'reactstrap';
 import  Login  from '../auth/Login';
-import { Logout } from '../auth/Logout';
+import  Logout  from '../auth/Logout';
 import Register from '../auth/Register';
 
 

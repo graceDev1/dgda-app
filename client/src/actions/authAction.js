@@ -59,6 +59,7 @@ export const register = ({name, email, password}) => dispatch=>{
 //LOGOUT
 
 export const logout = () =>{
+    console.log(">>>>>>>>>>>LOCOUT SUCCESS>>>>>>>");
     return{
         type: LOGOUT_SUCCESS
     }

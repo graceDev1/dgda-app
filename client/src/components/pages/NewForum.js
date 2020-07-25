@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { forumAdd } from '../../actions/forumAction';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 export class NewForum extends Component {
 
     static propTypes = {
@@ -11,11 +12,12 @@ export class NewForum extends Component {
 
     state = {
         title:'',
-        content:''
+        content:'',
+        redirectState: false
     }
 
     onChange = e => this.setState({[e.target.name]: e.target.value});
-
+    
     onSubmit= (e) =>{
         e.preventDefault();
         const post = {
@@ -23,6 +25,7 @@ export class NewForum extends Component {
             content: this.state.content
         }
         this.props.forumAdd(post);
+        this.props.history.push('/forum');
     }
 
     render() {
@@ -59,4 +62,4 @@ const mapStateToProps = (state) =>{
     }
 }
 
-export default connect(mapStateToProps, {forumAdd}) (NewForum);
+export default connect(mapStateToProps, {forumAdd})(withRouter(NewForum));

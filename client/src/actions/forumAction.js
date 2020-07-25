@@ -22,7 +22,6 @@ export const getforum = ()=> dispatch=>{
 // post forum 
 
 export const forumAdd = (forum) => (dispatch, getState) =>{
-
     axios.post('/api/forum', forum, tokenConfig(getState))
     .then(res =>{
         dispatch({
