@@ -11,3 +11,5 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const USER_LOADED = 'USER_LOADED';
 export const USER_LOADING = 'USER_LOADING';
+export const TEXT_LOADING = 'TEXT_LOADING';
+export const GET_TEXT = 'GET_TEXT';

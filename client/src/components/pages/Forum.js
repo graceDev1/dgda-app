@@ -37,7 +37,7 @@ export class Forum extends Component {
                {this.props.forum.map(post=>(
                    <div class="card mb-2 rounded" key={post._id}>
                        <div class="card-body">
-                          <strong><h4 class="card-title">{post.title}</h4></strong>
+                          <strong><h5 class="card-title">{post.title}</h5></strong>
                           <p class="card-text">
                               {post.content}
                         </p>

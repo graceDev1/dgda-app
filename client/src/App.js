@@ -27,9 +27,7 @@ export class App extends Component {
         <Route exact path="/" component={Home}/>
         <Route exact path="/forum" component={Forum}/>
         <Route exact path="/newforum" component={NewForum}/>  
-        <div className="container mt-5">
         <Route exact path="/reglement" component={Reglement}/>
-        </div>
       </div>
      
     </Provider>

@@ -62,8 +62,8 @@ export const logout = () =>{
     console.log(">>>>>>>>>>>LOCOUT SUCCESS>>>>>>>");
     return{
         type: LOGOUT_SUCCESS
-    }
-}
+    };
+};
 
 
 
