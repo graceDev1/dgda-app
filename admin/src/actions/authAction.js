@@ -1,5 +1,25 @@
-import {LOGIN_SUCCESS, LOGIN_FAIL} from './types';
+import {
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    ADMIN_LOADED,
+    ADMIN_LOADING,
+    AUTH_ERROR
+} from './types';
 import axios from 'axios';
+import {returnErrors} from './errorAction';
+
+
+// loaduser
+export const loadadmin = () => (dispatch, getState) => { // user loading
+    dispatch({type: ADMIN_LOADING});
+
+    axios.get('/api/admin', tokenConfig(getState)).then(res => {
+        dispatch({type: ADMIN_LOADED, payload: res.data})
+    }).catch(err => {
+        dispatch(returnErrors(err, err))
+        dispatch({type: AUTH_ERROR, payload: err})
+    });
+}
 
 
 // login admin
@@ -11,7 +31,7 @@ export const login = ({email, password}) => dispatch => { // headersd
     }
 
     const body = JSON.stringify({email, password});
-    axios.post('/api/user/auth', body, config).then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data})).catch(err => {
+    axios.post('/api/admin/login', body, config).then(res => dispatch({type: LOGIN_SUCCESS, payload: res.data})).catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'));
         dispatch({type: LOGIN_FAIL});
     });

@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router()
 const Post = require('../models/Post');
 const fs = require('fs')
+const authAdmin = require('../middleware/authAdmin');
 
 
 // const DIR = './public/';
@@ -64,7 +65,7 @@ router.get('/', (req, res) => {
 // @desc delete
 // @access auth
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authAdmin, (req, res) => {
     Post.findById(req.params.id).then((post) => post.remove().then(() => res.json({success: true}))).catch(() => res.status(404).json({success: false}));
 })
 
@@ -72,7 +73,7 @@ router.delete('/:id', (req, res) => {
 // @desc put or patch
 // @access auth
 
-router.patch('/:id', upload.single('filePdf'), async (req, res) => {
+router.patch('/:id', authAdmin, upload.single('filePdf'), async (req, res) => {
 
     let str = req.file.path;
     try {
