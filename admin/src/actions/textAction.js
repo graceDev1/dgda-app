@@ -41,7 +41,7 @@ export const updateText = ({id, theme, filePdf}) => dispatch => {
 
     const body = JSON.stringify({theme, filePdf});
     axios.patch(`/api/post/${id}`, body).then(res => {
-        dispatch({type: UPDATE_TEXT, payload: id})
+        dispatch({type: UPDATE_TEXT, payload: res.data})
     }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
 }
 

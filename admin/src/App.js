@@ -4,6 +4,7 @@ import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import {loadadmin} from './actions/authAction';
 import LoginPage from './components/auth/LoginPage';
 import MgttextRegl from './components/pages/MgttextRegl';
+import EditReglement from './components/pages/EditReglement';
 import PrivateRoute from './components/common/PrivateRoute';
 import store from './store';
 import './App.css';
@@ -25,6 +26,8 @@ export class App extends Component {
                             <Route exact path='/login'
                                 component={LoginPage}/>
                         </div>
+                        <PrivateRoute exact path='/edit'
+                            component={EditReglement}/>
                     </Switch>
                 </Provider>
             </Router>
