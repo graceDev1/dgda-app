@@ -7,21 +7,27 @@ import {Link} from 'react-router-dom';
 
 export class MgttextRegl extends Component {
 
+
     static propTypes = {
         deleteText: PropTypes.func.isRequired,
         getText: PropTypes.func.isRequired,
         text: PropTypes.array.isRequired
     }
+
     componentWillMount() {
         this.props.getText();
     }
+
+
     render() {
-        console.log(this.props.text)
+
         return (
             <Fragment>
                 <Header/>
                 <div className="container">
-                    <h3 className="">TEXT REGLEMENTAIRE</h3>
+                    <h3 className="mt-4 mb-4">TEXT REGLEMENTAIRE
+                        <Link to="/text" className="btn btn-primary sm float-right">Ajouter Text</Link>
+                    </h3>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -42,9 +48,7 @@ export class MgttextRegl extends Component {
                                     <td>{
                                         test.filePdf
                                     }</td>
-                                    <td>
-                                        <Link to="/edit">Edit</Link>
-                                    </td>
+                                    <td></td>
                                     <td>
                                         <i onClick={
                                                 this.props.deleteText.bind(this, test._id)
