@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {forumAdd} from '../../actions/forumAction';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+
+
 export class NewForum extends Component {
 
     static propTypes = {

@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../middleware/auth');
+const admin = require('../middleware/authAdmin');
 const router = express.Router();
 const forumModel = require('../models/Forum');
 
@@ -20,6 +21,8 @@ router.post('/', auth, (req, res) => { // check if all fields are filled
     if (!title || !content) 
         return res.status(400).json({msg: "Please enter all fields"});
     
+
+
     const newforum = new forumModel({title, content});
     newforum.save().then(data => res.json(data)).catch(err => console.log(err));
 });
@@ -28,7 +31,7 @@ router.post('/', auth, (req, res) => { // check if all fields are filled
 // delete forum
 // @desc PRIVATE
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', admin, (req, res) => {
     forumModel.findById(req.params.id).then((forum) => forum.remove().then(res.json({success: true}))).catch(err => res.status(404).json({success: false}));
 })
 

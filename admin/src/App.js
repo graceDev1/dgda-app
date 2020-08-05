@@ -5,6 +5,7 @@ import {loadadmin} from './actions/authAction';
 import LoginPage from './components/auth/LoginPage';
 import MgttextRegl from './components/pages/MgttextRegl';
 import NewReglement from './components/pages/NewReglement';
+import Forum from './components/pages/Forum';
 import PrivateRoute from './components/common/PrivateRoute';
 import store from './store';
 import './App.css';
@@ -22,12 +23,15 @@ export class App extends Component {
                     <Switch>
                         <PrivateRoute exact path='/'
                             component={MgttextRegl}/>
+                        <PrivateRoute exact path='/forum'
+                            component={Forum}/>
                         <div className="container">
                             <Route exact path='/login'
                                 component={LoginPage}/>
+                            <PrivateRoute exact path='/text'
+                                component={NewReglement}/>
                         </div>
-                        <PrivateRoute exact path='/text'
-                            component={NewReglement}/>
+
                     </Switch>
                 </Provider>
             </Router>

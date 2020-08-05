@@ -26,7 +26,11 @@ export const getText = () => dispatch => {
 export const addText = ({theme, filePdf}) => dispatch => {
     dispatch({type: TEXT_LOADING});
     const body = JSON.stringify({theme, filePdf});
-    axios.post('/api/post', body).then(res => {
+    axios.post('/api/post', body, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(res => {
         dispatch({type: ADD_TEXT, payload: res.data})
     }).catch(err => {
         dispatch(returnErrors(err.response.data, err.response.status));

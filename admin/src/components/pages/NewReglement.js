@@ -28,39 +28,40 @@ export class NewReglement extends Component {
         this.props.history.push('/');
     }
 
-    static propTypes = {
-        updateText: PropTypes.func.isRequired
-    }
 
     render() {
         const {theme, filePdf} = this.state;
         return (
             <Fragment>
                 <h5 className="mt-4 mb-4">Ajouter Texte reglementaire
-                    <Link className="btn btn-">Cancel</Link>
+                    <Link to="/" className="btn btn-outline-secondary sm float-right">Cancel</Link>
                 </h5>
-                <div className="container">
-                    <form onSubmit={
-                            this.onSubmit
-                        }
-                        className="form">
-                        <div className="form-group">
-                            <textarea className="form-control"
-                                value={theme}
-                                onChange={
-                                    this.onChange
-                                }
-                                placeholder="Description"
-                                name="theme"></textarea>
-                        </div>
-                        <input type="file" className="file mb-5"
-                            value={filePdf}
-                            onChange={
-                                this.onChange
+                <div className="card container rounded">
+                    <div className="card-body">
+                        <form onSubmit={
+                                this.onSubmit
                             }
-                            name="filePdf"/>
-                        <input type="submit" value="Ajouter" className="btn btn-outline-primary"/>
-                    </form>
+                            className="form">
+                            <div className="form-group">
+                                <textarea className="form-control"
+                                    value={theme}
+                                    onChange={
+                                        this.onChange
+                                    }
+                                    placeholder="Description"
+                                    name="theme"></textarea>
+                            </div>
+                            <div>
+                                <input type="file" className="file mb-5"
+                                    value={filePdf}
+                                    onChange={
+                                        this.onChange
+                                    }
+                                    name="filePdf"/>
+                            </div>
+                            <input type="submit" value="Ajouter" className="btn btn-outline-primary"/>
+                        </form>
+                    </div>
                 </div>
             </Fragment>
         )
