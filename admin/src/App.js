@@ -6,6 +6,7 @@ import LoginPage from './components/auth/LoginPage';
 import MgttextRegl from './components/pages/MgttextRegl';
 import NewReglement from './components/pages/NewReglement';
 import Forum from './components/pages/Forum';
+import User from './components/pages/User';
 import PrivateRoute from './components/common/PrivateRoute';
 import store from './store';
 import './App.css';
@@ -17,25 +18,25 @@ export class App extends Component {
     }
 
     render() {
-        return (
-            <Router>
-                <Provider store={store}>
-                    <Switch>
-                        <PrivateRoute exact path='/'
-                            component={MgttextRegl}/>
-                        <PrivateRoute exact path='/forum'
-                            component={Forum}/>
-                        <div className="container">
-                            <Route exact path='/login'
-                                component={LoginPage}/>
-                            <PrivateRoute exact path='/text'
-                                component={NewReglement}/>
-                        </div>
+        return (<Router>
+            <Provider store={store}>
+                <Switch>
+                    <PrivateRoute exact path='/'
+                        component={MgttextRegl}/>
+                    <PrivateRoute exact path="/user"
+                        component={User}/>
+                    <PrivateRoute exact path='/forum'
+                        component={Forum}/>
+                    <div className="container">
+                        <Route exact path='/login'
+                            component={LoginPage}/>
+                        <PrivateRoute exact path='/text'
+                            component={NewReglement}/>
+                    </div>
 
-                    </Switch>
-                </Provider>
-            </Router>
-        );
+                </Switch>
+            </Provider>
+        </Router>);
     }
 
 }
